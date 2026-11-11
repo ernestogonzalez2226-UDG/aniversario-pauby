@@ -56,6 +56,22 @@
   .etiqueta { font-size: .75rem; font-weight: 700; text-transform: uppercase; color: var(--texto-suave); }
   .desde { margin-top: 12px; font-size: .95rem; color: var(--texto-suave); }
 
+  /* fotos */
+  .fotos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .fotos img {
+    width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; cursor: zoom-in;
+    border-radius: 18px; border: 5px solid #fff; box-shadow: var(--sombra);
+    transition: transform .3s;
+  }
+  .fotos img:first-child { grid-column: span 2; aspect-ratio: 4 / 3; }
+  .fotos img:hover { transform: translateY(-6px) rotate(-1deg); }
+  #visor {
+    position: fixed; inset: 0; z-index: 20; background: rgba(107, 58, 85, .85);
+    display: none; place-items: center; padding: 16px; cursor: zoom-out;
+  }
+  #visor.abierto { display: grid; }
+  #visor img { max-width: 100%; max-height: 90vh; border-radius: 16px; border: 5px solid #fff; }
+
   /* video */
   video { width: 100%; max-width: 340px; aspect-ratio: 9 / 16; border-radius: 24px; background: var(--rosa); box-shadow: var(--sombra); border: 6px solid #fff; }
 
@@ -110,6 +126,19 @@
   </section>
 
   <section>
+    <h2>Nuestros momentos 📸</h2>
+    <div class="fotos">
+      <img src="fotos/3.jpg" alt="Nosotros con el perrito">
+      <img loading="lazy" src="fotos/1.jpg" alt="Foto en el espejo">
+      <img loading="lazy" src="fotos/2.jpg" alt="Abrazados bajo las estrellas">
+      <img loading="lazy" src="fotos/4.jpg" alt="Paseo en el río">
+      <img loading="lazy" src="fotos/5.jpg" alt="Foto en el carro">
+      <img loading="lazy" src="fotos/6.jpg" alt="Selfie juntos">
+      <img loading="lazy" src="fotos/7.jpg" alt="Foto en la tienda">
+    </div>
+  </section>
+
+  <section>
     <video src="proyecto-aniversario-pauby.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video>
   </section>
 
@@ -159,6 +188,18 @@ if (!reduceMotion) setInterval(() => {
   $("corazones").appendChild(c);
   c.addEventListener("animationend", () => c.remove());
 }, 900);
+
+// visor de fotos
+const visor = document.createElement("div");
+visor.id = "visor";
+visor.innerHTML = "<img alt=''>";
+document.body.appendChild(visor);
+document.querySelectorAll(".fotos img").forEach((img) => img.addEventListener("click", () => {
+  visor.firstChild.src = img.src; visor.firstChild.alt = img.alt;
+  visor.classList.add("abierto");
+}));
+visor.addEventListener("click", () => visor.classList.remove("abierto"));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") visor.classList.remove("abierto"); });
 
 // botón NO que huye
 const no = $("no"), si = $("si");

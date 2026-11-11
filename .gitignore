@@ -4,3 +4,6 @@
 !index.html
 !proyecto-aniversario-pauby.mp4
 !poster.jpg
+!fotos/
+fotos/*
+!fotos/*.jpg
