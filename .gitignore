@@ -1,0 +1,5 @@
+# Ignorar todo excepto la página y el video
+/*
+!.gitignore
+!index.html
+!proyecto-aniversario-pauby.mp4
